@@ -14,6 +14,7 @@ const Login = () => {
     const [error, setError] = useState(null);
 
     const login = async (data) => {
+        // console.log('working')
         setError('');
         try{
             const session = await authService.login(data);
@@ -30,8 +31,8 @@ const Login = () => {
         }
     }
     return(
-        <div className="flex item-center justify-center w-full">
-            <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
+        <div className="flex item-center justify-center w-full py-8">
+            <div className={`mx-auto w-full max-w-lg bg-[#eee] rounded-xl p-10 border border-black/10`}>
                 <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px]">
                         <Logo width="100%" />
@@ -42,8 +43,8 @@ const Login = () => {
                     Don&apos;t have any account?&nbsp;
                     <Link
                         to='/signup'
-                        className="font-medium text-primary transition-all duration-200 hover:underline"
-                    >Signup</Link>
+                        className="font-medium text-orange-400 transition-all duration-200 hover:underline"
+                    >Sign Up</Link>
                 </p>
                 {
                     error && <p className="text-red-600 mt-8 text-center">{error}</p>

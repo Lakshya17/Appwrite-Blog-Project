@@ -6,28 +6,30 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const PostForm = ({post}) => {
+    // console.log(post, 'another poset')
     const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
         defaultValues: {
             title: post?.title || '',
-            slug: post?.slug || '',
+            slug: post?.$id || '',
             content: post?.content || '',
             status: post?.status || 'active'
         }
     })
 
     const navigate = useNavigate();
-    const userData = useSelector((state) => state.user.userData)
+    const userData = useSelector((state) => state.auth.userData)
 
     const submit = async (data) => {
+        // console.log(data,' this is the new dataa')
         if(post){
-            const file = data.image[0] ? appwriteSerivce.uploadFile(data.image[0]) : null
-
+            const file = data.image[0] ? await appwriteSerivce.uploadFile(data.image[0]) : null
+            // console.log(file, 'fieles')
             if(file){
                 appwriteSerivce.deleteFile(post.featuredImage)
             }
 
             const dbPost = await appwriteSerivce.updatePost(post.$id, {...data, featuredImage: file ? file.$id: undefined})
-
+            // console.log(dbPost,'dppsot')
             if(dbPost){
                 navigate(`/post/${dbPost.$id}`)
             }
@@ -52,7 +54,7 @@ const PostForm = ({post}) => {
             return value
                     .trim()
                     .toLowerCase()
-                    .replace(/^[a-zA-Z\d\s]+/g, '-')
+                    .replace(/[^a-zA-Z\d\s]+/g, '-')
                     .replace(/\s/g, '-')
         }
         return '';
@@ -69,6 +71,8 @@ const PostForm = ({post}) => {
             subscription.unsubscribe()
         }
     }, [watch, slugTransform, setValue])
+
+    // console.log(post, 'THisis the PostForm')
 
     return(
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">

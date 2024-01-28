@@ -32,6 +32,8 @@ export default function Post() {
         });
     };
 
+    // console.log('This is Post', post)
+
     return post ? (
         <div className="py-8">
             <Container>
@@ -39,7 +41,7 @@ export default function Post() {
                     <img
                         src={appwriteService.getFilePreview(post.featuredImage)}
                         alt={post.title}
-                        className="rounded-xl"
+                        className="rounded-xl w-full"
                     />
 
                     {isAuthor && (

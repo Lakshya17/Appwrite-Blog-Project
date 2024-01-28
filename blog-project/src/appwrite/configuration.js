@@ -83,9 +83,9 @@ export class Service{
 
     async getPosts(queries = [Query.equal('status', 'active')]){
         try{
-            await this.databases.listDocuments(
+            return await this.databases.listDocuments(
                 config.appwriteDatabaseId,
-                config.appwriteDatabaseId,
+                config.appwriteCollectionId,
                 queries
             )
         }catch(error){
@@ -96,6 +96,7 @@ export class Service{
 
     // file upload methods
     async uploadFile(file){
+        // console.log(file, 'file is updateing')
         try{
             return await this.bucket.createFile(
                 config.appwriteBucketID,
@@ -122,6 +123,7 @@ export class Service{
     } 
 
     getFilePreview(fileId){
+        // console.log(fileId, 'file id in configurationjs')
         return this.bucket.getFilePreview(
             config.appwriteBucketID,
             fileId

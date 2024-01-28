@@ -1,4 +1,4 @@
-import LogoImg from '../assets/Logo.png'
+import LogoImg from '../assets/logo.png'
 const Logo = ({width = '100px'}) => {
     return(
         <>
